@@ -204,6 +204,7 @@
 
 		// self-calling function that checks the browser width and delegates if it detects a change
 		var checkResize = function() {
+			clearTimeout(resizeTimer);
 
 			// get current width
 			var w = winWidth();
@@ -222,9 +223,10 @@
 			resizeW = w;
 
 			// calls itself on a setTimeout
-			setTimeout(checkResize, resizeTmrSpd);
+			resizeTimer = setTimeout(checkResize, resizeTmrSpd);
 		};
 		checkResize();
+		jQuery(window).on('resize', checkResize);
 
 		// return
 		return {
